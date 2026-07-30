@@ -1,40 +1,27 @@
 class Solution {
 public:
-    bool canPlace(vector<int>& position, int m, int dist) {
-        int count = 1;
-        int last = position[0];
-
-        for (int i = 1; i < position.size(); i++) {
-            if (position[i] - last >= dist) {
-                count++;
-                last = position[i];
-
-                if (count >= m)
-                    return true;
-            }
-        }
-
-        return false;
-    }
-
     int maxDistance(vector<int>& position, int m) {
-        sort(position.begin(), position.end());
-
-        int low = 1;
-        int high = position.back() - position.front();
-        int ans = 1;
-
-        while (low <= high) {
-            int mid = low + (high - low) / 2;
-
-            if (canPlace(position, m, mid)) {
+        int n = position.size();
+        long long start = 1, end , ans , mid;
+        sort(position.begin() , position.end());
+        end = position[n-1] - position[0];
+        
+        while(start <= end){
+            mid = start + (end - start) / 2;
+            int count = 1, pos = position[0];
+            for(int i = 0; i < n; i++){
+                if(pos + mid <= position[i]){
+                    count++;
+                    pos = position[i];
+                }
+            }
+            if(count < m)
+                end = mid - 1;
+            else{
                 ans = mid;
-                low = mid + 1;      // Try a larger minimum distance
-            } else {
-                high = mid - 1;     // Reduce the distance
+                start = mid + 1;
             }
         }
-
         return ans;
     }
 };
