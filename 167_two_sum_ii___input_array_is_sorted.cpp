@@ -10,7 +10,7 @@ public:
                 return result;
 
             }
-            else if(numbers[start] < numbers[end] && numbers[start] + numbers[end] > target){
+            else if(numbers[start] + numbers[end] > target){
                 end--;
             }
             else{
