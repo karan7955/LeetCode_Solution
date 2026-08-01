@@ -1,23 +1,22 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& numbers, int target) {
-        int left = 0;
-        int right = numbers.size() - 1;
+        vector <int> result;
+        int start = 0, end = numbers.size() - 1;
+        while(start < end){
+            if(numbers[start] + numbers[end] == target){
+                result.push_back(start + 1);
+                result.push_back(end + 1);
+                return result;
 
-        while (left < right) {
-            int sum = numbers[left] + numbers[right];
-
-            if (sum == target) {
-                return {left + 1, right + 1}; // 1-based indexing
             }
-            else if (sum < target) {
-                left++;   // Increase sum
+            else if(numbers[start] < numbers[end] && numbers[start] + numbers[end] > target){
+                end--;
             }
-            else {
-                right--;  // Decrease sum
+            else{
+                start++;
             }
         }
-
-        return {};
+        return result;
     }
 };
